@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>is girlfriend sad?</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: grid;
+      place-items: center;
+      background: #fff;
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    #status {
+      font-size: clamp(6rem, 30vw, 22rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+  </style>
+</head>
+<body>
+  <main id="status">...</main>
+
+  <script>
+    async function updateStatus() {
+      try {
+        const response = await fetch("status.txt?t=" + Date.now(), { cache: "no-store" });
+        const status = (await response.text()).trim().toUpperCase();
+        document.getElementById("status").textContent =
+          status === "YES" ? "YES" : "NO";
+      } catch {
+        document.getElementById("status").textContent = "NO";
+      }
+    }
+
+    updateStatus();
+    setInterval(updateStatus, 15000);
+  </script>
+</body>
+</html>
